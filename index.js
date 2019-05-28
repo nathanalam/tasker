@@ -36,7 +36,7 @@ function authorize(credentials, callback) {
 }
 
 /**
- * Get and store new token after prompting for user authorization, and then
+ * Prompt the user for authentication, and store their info into token.json, and then
  * execute the given callback with the authorized OAuth2 client.
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
@@ -47,6 +47,16 @@ function getNewToken(oAuth2Client, callback) {
     scope: SCOPES,
   });
   console.log('Authorize this app by visiting this url:', authUrl);
+  receiveCode(oAuth2Client, callback);
+}
+
+/**
+ * Get and store new token after prompting for user authorization, and then
+ * execute the given callback with the authorized OAuth2 client.
+ * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
+ * @param {getEventsCallback} callback The callback for the authorized client.
+ */
+function receiveCode(oAuth2Client, callback) {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,

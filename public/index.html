@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dashboard</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="content">This is the content</div>
+        <script>
+            var code = null;
+            var auth = null;
+
+            // get the url to generate our authentication code
+            $.get("/yee", function(data) {
+                console.log(data);
+                console.log(data.urlToAccess);
+                auth = data;
+            });
+
+            // with our authentication code, get our list
+            $( "#content" ).click(function() {
+                console.log("Auth: " + auth + ", code: " + code);
+                $.post( "/haw", { oauth: auth, key: code })
+                .done(function( data ) {
+                    alert( "Data Loaded: " + data );
+                });
+            });
+        </script>
+    </body>
+</html>

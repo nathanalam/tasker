@@ -1,0 +1,26 @@
+{
+  "name": "tasker",
+  "version": "1.0.0",
+  "description": "Google task desktop app",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathanalam/tasker.git"
+  },
+  "keywords": [
+    "Google",
+    "Tasks"
+  ],
+  "author": "Nathan Alam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathanalam/tasker/issues"
+  },
+  "homepage": "https://github.com/nathanalam/tasker#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

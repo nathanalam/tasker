@@ -17,6 +17,7 @@
 
             // get the url to generate our authentication code
             $.get("/yee", function(data) {
+                data = JSON.parse(data);
                 console.log(data);
                 console.log(data.urlToAccess);
                 $("#urlRequest").text(data.urlToAccess);
@@ -27,7 +28,7 @@
             function submitCode() {
                 code = $("#codeInput").val();
                 console.log("Auth: " + auth + ", code: " + code);
-                $.post( "/haw", { oauth: auth, key: code })
+                $.post( "/haw", { oauth: JSON.stringify(auth), key: code })
                 .done(function( data ) {
                     alert( "Data Loaded: " + data );
                 });

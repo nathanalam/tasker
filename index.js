@@ -58,9 +58,13 @@ const SCOPES = ['https://www.googleapis.com/auth/tasks.readonly'];
  */
 function listTaskLists(auth, code) {
   console.log(auth);
-  auth.getToken(null, (err, token) => {
-    console.log("i happened");
-  });
+  try {
+    auth.getToken(code, (err, token) => {
+      console.log("I happened");
+    });
+  } catch (error) {
+    console.log("I did not happen");
+  }
   // auth.getToken(code, (err, token) => {
   //   if (err) return console.error('Error retrieving access token', err);
   //   auth.setCredentials(token);

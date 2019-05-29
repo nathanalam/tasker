@@ -30,12 +30,17 @@ app.get("/yee", function(req, res) {
       scope: SCOPES,
     });
     oAuth2Client.urlToAccess = authUrl;
-    res.send(oAuth2Client);
+    console.log("BEFORE THE SEND");
+    console.log(oAuth2Client);
+    oAuth2Client.getToken(null, (err, token) => {
+      console.log("i happened");
+    });
+    res.send(JSON.stringify(oAuth2Client));
   });
 });
 
 app.post("/haw", function(req, res) {
-  res.send(listTaskLists(req.body.oauth, req.body.key));
+  res.send(listTaskLists(JSON.parse(req.body.oauth), req.body.key));
 });
 
 console.log("Listening on http://localhost:3000");
@@ -52,16 +57,20 @@ const SCOPES = ['https://www.googleapis.com/auth/tasks.readonly'];
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function listTaskLists(auth, code) {
-  auth.getToken(code, (err, token) => {
-    if (err) return console.error('Error retrieving access token', err);
-    auth.setCredentials(token);
+  console.log(auth);
+  auth.getToken(null, (err, token) => {
+    console.log("i happened");
   });
-  const service = google.tasks({version: 'v1', auth});
-  service.tasklists.list({
-    maxResults: 10,
-  }, (err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const taskLists = res.data.items;
-    return taskLists;
-  });
+  // auth.getToken(code, (err, token) => {
+  //   if (err) return console.error('Error retrieving access token', err);
+  //   auth.setCredentials(token);
+  // });
+  // const service = google.tasks({version: 'v1', auth});
+  // service.tasklists.list({
+  //   maxResults: 10,
+  // }, (err, res) => {
+  //   if (err) return console.error('The API returned an error: ' + err);
+  //   const taskLists = res.data.items;
+  //   return taskLists;
+  // });
 }

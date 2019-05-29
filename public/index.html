@@ -5,7 +5,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body>
-        <div id="content">This is the content</div>
+        <h3>Please sign in at the following URL:</h3>
+        <div id="urlRequest"></div>
+        <h3>And insert the code you get into the textbox below:</h3>
+        <input id="codeInput" type="text">
+        <button onClick="submitCode()">Submit Code</button>
+        <div id="viewport"></div>
         <script>
             var code = null;
             var auth = null;
@@ -14,17 +19,19 @@
             $.get("/yee", function(data) {
                 console.log(data);
                 console.log(data.urlToAccess);
+                $("#urlRequest").text(data.urlToAccess);
                 auth = data;
             });
 
             // with our authentication code, get our list
-            $( "#content" ).click(function() {
+            function submitCode() {
+                code = $("#codeInput").val();
                 console.log("Auth: " + auth + ", code: " + code);
                 $.post( "/haw", { oauth: auth, key: code })
                 .done(function( data ) {
                     alert( "Data Loaded: " + data );
                 });
-            });
+            }
         </script>
     </body>
 </html>

@@ -17,7 +17,7 @@
 
             // get the url to generate our authentication code
             $.get("/yee", function(data) {
-                data = JSON.parse(data);
+                // data = JSON.parse(data);
                 console.log(data);
                 console.log(data.urlToAccess);
                 $("#urlRequest").text(data.urlToAccess);

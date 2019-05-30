@@ -32,7 +32,13 @@ app.get("/yee", function(req, res) {
     oAuth2Client.urlToAccess = authUrl;
     console.log("BEFORE THE SEND");
     console.log(oAuth2Client);
-    oAuth2Client.getToken(null, (err, token) => {
+    var thing = JSON.stringify(oAuth2Client);
+    thing = JSON.parse(thing);
+    console.log("The original token:");
+    console.log(oAuth2Client);
+    console.log("The mimic:");
+    console.log(thing);
+    thing.getToken(null, (err, token) => {
       console.log("i happened");
     });
     res.send(JSON.stringify(oAuth2Client));
